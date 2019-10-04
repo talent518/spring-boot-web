@@ -24,3 +24,14 @@ logging:
     org.springframework.web: debug
     org.mybatis.spring: debug
     com.talent58.demo: debug
+
+# custom config for ConfigPropController
+config:
+  value: test @Value annotation
+  prop:
+    upload-dir: /path/to
+    upload-url: /url
+    width: 100
+    height: 60
+    desc: image size
+
