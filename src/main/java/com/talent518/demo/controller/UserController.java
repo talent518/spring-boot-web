@@ -1,6 +1,7 @@
 package com.talent518.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,12 +24,8 @@ public class UserController {
 	
 	@RequestMapping("")
 	public Result list(@RequestParam(name = "offset", defaultValue = "0") int offset, @RequestParam(name = "size", required = false, defaultValue = "10") int size, @RequestParam(name = "isCount", required = false) boolean isCount) {
-		if(offset < 0) {
-			return new Result("The offset parameter should not be less than 0");
-		}
-		if(size <= 0) {
-			return new Result("The parameter limit cannot be less than or equal to 0");
-		}
+		Assert.isTrue(offset >= 0, "The offset parameter should not be less than 0");
+		Assert.isTrue(size > 0, "The parameter limit cannot be less than or equal to 0");
 
 		if(isCount) {
 			return new Result(userService.count(), userService.list(offset, size));
