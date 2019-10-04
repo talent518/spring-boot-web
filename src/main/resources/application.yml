@@ -5,3 +5,28 @@ spring:
     view:
       prefix: /jsp/
       suffix: .jsp
+  freemarker:
+    allow-request-override: false
+    cache: true
+    check-template-location: true
+    charset: UTF-8
+    content-type: text/html; charset=utf-8
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+
+  thymeleaf:
+    cache: true
+    check-template-location: true
+    check-template: true
+  # content-type: text/html
+    enabled: true
+    excluded-view-names:
+    mode: LEGACYHTML5
+    prefix: classpath:/templates/
+    suffix: .html
+
+
+

@@ -15,4 +15,5 @@ public interface UserMapper {
 	public List<User> list(int offset, int size);
 	public int count();
     public User find(int id);
+	public int register(User user);
 }

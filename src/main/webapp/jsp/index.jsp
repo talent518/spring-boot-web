@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>spring-boot-web</title>
+<title>spring-boot-web(jsp模板引擎)</title>
 </head>
 <body style="line-height:26px;font-size:16px;">
 <c:forEach items="${urls}" var="url">

@@ -30,4 +30,8 @@ public class UserService {
 	public User find(int id) {
 		return userMapper.find(id);
 	}
+
+	public boolean register(User user) {
+		return userMapper.register(user) > 0;
+	}
 }

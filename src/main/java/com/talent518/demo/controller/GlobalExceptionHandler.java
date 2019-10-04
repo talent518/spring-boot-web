@@ -1,5 +1,6 @@
 package com.talent518.demo.controller;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +13,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
 	Result handlerException(Exception e) {
+		if (e instanceof DuplicateKeyException) {
+			String s = e.getMessage();
+			String s2 = s.substring(s.lastIndexOf("Duplicate"));
+			return new Result(s2);
+		}
 		return new Result(e.getMessage());
 	}
 }
