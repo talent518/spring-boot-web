@@ -20,6 +20,9 @@
     <select id="count" resultType="int">
     	SELECT COUNT(*) FROM user
     </select>
+    <!-- <select id="findByUsername" resultMap="resultMap">
+    	SELECT * FROM user WHERE username=#{username}
+    </select> -->
     <insert id="register" parameterType="com.talent518.demo.entity.User">
     	INSERT INTO user (username,email,password,salt,registerTime)VALUES(#{username},#{email},MD5(CONCAT(MD5(#{password}),#{salt})),#{salt},NOW())
     </insert>

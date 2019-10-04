@@ -1,10 +1,12 @@
 package com.talent518.demo.mapper;
+
 import java.util.List;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import com.talent518.demo.entity.User;
- 
+
 /**
  * @Author:wjup
  * @Date: 2018/9/26 0026
@@ -13,7 +15,13 @@ import com.talent518.demo.entity.User;
 @Repository
 public interface UserMapper {
 	public List<User> list(int offset, int size);
+
 	public int count();
-    public User find(int id);
+
+	public User find(int id);
+
 	public int register(User user);
+
+	@Select("SELECT * FROM user WHERE username=#{username}")
+	public User findByUsername(String username);
 }

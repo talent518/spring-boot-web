@@ -34,4 +34,8 @@ public class UserService {
 	public boolean register(User user) {
 		return userMapper.register(user) > 0;
 	}
+	
+	public User findByUsername(String username) {
+		return userMapper.findByUsername(username);
+	}
 }

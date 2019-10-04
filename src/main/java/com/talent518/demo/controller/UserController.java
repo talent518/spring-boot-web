@@ -77,4 +77,9 @@ public class UserController {
 		if (i > 0) return Result.ok();
 		return new Result("Register failure");
 	}
+	
+	@RequestMapping("/findByUsername/{username}")
+	public User findByUsername(@PathVariable String username) {
+		return userService.findByUsername(username);
+	}
 }
