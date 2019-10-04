@@ -1,0 +1,22 @@
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+	uid INT NOT NULL AUTO_INCREMENT,
+	username VARCHAR(20) NOT NULL,
+	email VARCHAR(100) NOT NULL,
+	password VARCHAR(32) NOT NULL,
+	salt VARCHAR(8) NOT NULL,
+	registerTime DATETIME NOT NULL,
+	loginTime DATETIME,
+	loginTimes INT DEFAULT 0 NOT NULL,
+	PRIMARY KEY (uid),
+	UNIQUE KEY (username),
+	UNIQUE KEY(email)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
+
+INSERT INTO user VALUES(0,'admin','admin@yeah.net',MD5(CONCAT(MD5('admin8'),'12345678')),12345678,NOW(),null,0);
+INSERT INTO user VALUES(0,'talent518','talent518@yeah.net',MD5(CONCAT(MD5('Tz555888'),'87654321')),87654321,NOW(),null,0);
+
+-- SELECT * FROM user;
+-- SHOW CREATE TABLE user;
+
+

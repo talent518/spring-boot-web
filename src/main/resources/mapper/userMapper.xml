@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.talent518.demo.mapper.UserMapper">
+    <resultMap id="resultMap" type="com.talent518.demo.entity.User">
+        <result column="uid" jdbcType="INTEGER" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="salt" jdbcType="VARCHAR" property="salt" />
+        <result column="registerTime" jdbcType="TIMESTAMP" property="registerTime" />
+        <result column="loginTime" jdbcType="TIMESTAMP" property="loginTime" />
+        <result column="tryLoginTimes" jdbcType="INTEGER" property="tryLoginTimes" />
+    </resultMap>
+ 
+    <select id="find" resultMap="resultMap">
+        SELECT * FROM user WHERE uid = #{id}
+    </select>
+    <select id="list" resultMap="resultMap">
+        SELECT * FROM user LIMIT #{offset},#{size}
+    </select>
+    <select id="count" resultType="int">
+    	SELECT COUNT(*) FROM user
+    </select>
+</mapper>
