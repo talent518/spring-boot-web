@@ -28,7 +28,7 @@ public class IndexController {
 				"<head>\n" + 
 				"	<title>spring-boot-web</title>\n" + 
 				"</head>\n" + 
-				"<body style=\"line-height:26px;font-size:14px;\">\n");
+				"<body style=\"line-height:26px;font-size:16px;\">\n");
 		for(String url: urls()) {
 			if(url.indexOf('{') > -1)
 				sb.append(url).append("<br/>\n");
