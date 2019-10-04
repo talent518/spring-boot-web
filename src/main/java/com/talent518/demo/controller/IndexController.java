@@ -1,6 +1,7 @@
 package com.talent518.demo.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,9 @@ public class IndexController {
 	private List<String> urls = new ArrayList<String>();
 
 	public List<String> urls() {
-		if(urls.size() > 0) return urls;
+		if (urls.size() > 0) return urls;
 		synchronized (urls) {
-			if(urls.size() == 0) {
+			if (urls.size() == 0) {
 				RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
 				// 获取url与类和方法的对应信息
 				Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
@@ -48,9 +49,15 @@ public class IndexController {
 				}
 				set.remove("/");
 				urls.addAll(set);
+				urls.sort(new Comparator<String>() {
+					@Override
+					public int compare(String o1, String o2) {
+						return o1.compareTo(o2);
+					}
+				});
 			}
 		}
-		
+
 		return urls;
 	}
 }
