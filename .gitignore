@@ -2,3 +2,4 @@ target
 build
 .sts4-cache
 .attach_pid*
+src/main/webapp/upload

@@ -28,5 +28,15 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 
-
-
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+      cache: true
+      compressed: false
+      enabled: true
+    cache:
+      cachecontrol:
+        cache-public: true
