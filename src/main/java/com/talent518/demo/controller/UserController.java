@@ -57,7 +57,7 @@ public class UserController {
 		user.setSalt(String.format("%08x", random.nextInt()));
 
 		if (userService.register(user)) return Result.ok();
-		return new Result("Register failure");
+		return new Result("Failure");
 	}
 
 	@Autowired
@@ -75,7 +75,7 @@ public class UserController {
 
 		int i = jdbcTemplate.update("INSERT INTO user (username,email,password,salt,registerTime)VALUES(?,?,MD5(CONCAT(MD5(?),?)),?,NOW())", user.getUsername(), user.getEmail(), user.getPassword(), user.getSalt(), user.getSalt());
 		if (i > 0) return Result.ok();
-		return new Result("Register failure");
+		return new Result("Failure");
 	}
 	
 	@RequestMapping("/findByUsername/{username}")
