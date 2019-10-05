@@ -70,10 +70,11 @@ public class UploadController {
 	@PostMapping("/upload")
 	@ResponseBody
 	public String upload(MultipartFile file, HttpServletRequest request) throws Exception {
+		if(file.isEmpty()) return "<script type=\"text/javascript\">alert('请选择文件类型为png,gif,jpg,jpeg,bmp,svg的图片！');history.back();</script>";
 		String name = file.getOriginalFilename();
 		String ext = name.substring(name.lastIndexOf('.')).toLowerCase();
 		if (!ext.matches("\\.(png|gif|jpe?g|bmp|svg)")) {
-			return "<script type=\"\">alert('只能上传文件类型为png,gif,jpg,jpeg,bmp,svg的图片！');history.back();</script>";
+			return "<script type=\"text/javascript\">alert('只能上传文件类型为png,gif,jpg,jpeg,bmp,svg的图片！');history.back();</script>";
 		}
 		File path = new File(request.getServletContext().getRealPath("/upload"));
 		if (!path.isDirectory()) path.mkdir();
