@@ -16,7 +16,7 @@ public class AccessLogInterceptor implements WebMvcConfigurer {
 		HandlerInterceptor interceptor = new HandlerInterceptor() {
 			@Override
 			public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-				System.err.println("Access URI: " + request.getRequestURI());
+				System.err.println(request.getMethod() + ": " + request.getRequestURI());
 				return true;
 			}
 
