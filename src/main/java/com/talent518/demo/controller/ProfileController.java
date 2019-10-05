@@ -74,7 +74,7 @@ public class ProfileController {
 	}
 
 	@Autowired
-	JdbcTemplate jdbcTemplate;
+	JdbcTemplate jdbcTemplate2;
 
 	@RequestMapping("/jdbcTemplate")
 	public Result jdbcTemplate(Profile profile) {
@@ -84,7 +84,7 @@ public class ProfileController {
 		Assert.notNull(profile.getBirthday(), "birthday is required");
 		Assert.notNull(profile.getAddress(), "address is required");
 
-		int i = jdbcTemplate.update("INSERT INTO profile (uid,realName,sex,birthday,address)VALUES(?,?,?,?,?)", profile.getId(), profile.getRealName(), profile.getSex(), profile.getBirthday(), profile.getAddress());
+		int i = jdbcTemplate2.update("INSERT INTO profile (uid,realName,sex,birthday,address)VALUES(?,?,?,?,?)", profile.getId(), profile.getRealName(), profile.getSex().getValue(), profile.getBirthday(), profile.getAddress());
 		if (i > 0) return Result.ok();
 		return new Result("Failure");
 	}

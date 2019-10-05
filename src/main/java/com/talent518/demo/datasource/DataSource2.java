@@ -12,6 +12,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 @Configuration
@@ -38,5 +39,10 @@ public class DataSource2 {
 	@Bean(name = "db2TransactionManager")
 	public DataSourceTransactionManager db2TransactionManager(@Qualifier("db2DataSource") DataSource datasource) {
 		return new DataSourceTransactionManager(datasource);
+	}
+	
+	@Bean(name = "jdbcTemplate2")
+	public JdbcTemplate jdbcTemplate2(@Qualifier("db2DataSource") DataSource datasource) {
+		return new JdbcTemplate(datasource);
 	}
 }
