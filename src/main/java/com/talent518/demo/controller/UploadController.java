@@ -1,8 +1,11 @@
 package com.talent518.demo.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,10 +16,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 @Controller
 public class UploadController {
+	public class FileItem {
+		private String img;
+		private String lnk;
+		
+		public FileItem(String img, String lnk) {
+			super();
+			this.img = img;
+			this.lnk = lnk;
+		}
+		public String getImg() {
+			return img;
+		}
+		public void setImg(String img) {
+			this.img = img;
+		}
+		public String getLnk() {
+			return lnk;
+		}
+		public void setLnk(String lnk) {
+			this.lnk = lnk;
+		}
+	}
+	
 	@GetMapping("/upload")
-	public String upload(HttpServletRequest request, Model model) {
+	public String upload(HttpServletRequest request, Model model) throws IOException {
 		File[] files = new File(request.getServletContext().getRealPath("/upload")).listFiles();
 		if (files != null && files.length > 0) {
 			Arrays.sort(files, new Comparator<File>() {
@@ -25,12 +53,15 @@ public class UploadController {
 					return -Long.compare(o1.lastModified(), o2.lastModified());
 				}
 			});
-			String[] names = new String[files.length];
-			int i = 0;
+			List<FileItem> items = new ArrayList<FileItem>();
 			for(File f: files) {
-				names[i++] = f.getName();
+				if(f.getName().contains("-120x120.") || !f.getName().matches(".*\\.(png|gif|jpe?g|bmp|svg)$")) continue;
+				int pos = f.getName().lastIndexOf('.');
+				File f2 = new File(f.getParent(), f.getName().substring(0, pos) + "-120x120" + f.getName().substring(pos));
+				if(!f2.exists()) Thumbnails.of(f).size(120, 120).keepAspectRatio(true).toFile(f2);
+				items.add(new FileItem(f2.getName(), f.getName()));
 			}
-			model.addAttribute("files", names);
+			model.addAttribute("files", items);
 		}
 		model.addAttribute("baseUrl", request.getContextPath());
 		return "upload";

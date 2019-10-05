@@ -13,7 +13,7 @@ img{max-width:120px;max-height:120px;margin:2px;border:1px black solid;vertical-
 		<p><button type="submit">上传</button></p>
 		
 		<#list files as f>
-			<img src="${baseUrl}/upload/${f}" />
+			<a href="${baseUrl}/upload/${f.lnk}"><img src="${baseUrl}/upload/${f.img}" /></a>
 		</#list>
 	</form>
 </body>
