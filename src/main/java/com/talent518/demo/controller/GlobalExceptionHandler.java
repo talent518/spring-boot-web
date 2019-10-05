@@ -10,9 +10,10 @@ import com.talent518.demo.entity.Result;
 // 全局异常处理器
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(Throwable.class)
 	@ResponseBody
-	Result handlerException(Exception e) {
+	Result handlerException(Throwable e) {
+		e.printStackTrace();
 		if (e instanceof DuplicateKeyException) {
 			String s = e.getMessage();
 			String s2 = s.substring(s.lastIndexOf("Duplicate"));

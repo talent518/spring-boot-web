@@ -24,6 +24,18 @@ spring:
   http:
     encoding:
       force: true
+  mail:
+    host: smtp.126.com
+    #port: 25
+    username: talentzhang2009@126.com
+    password: Tz555888
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 
 #showSql
 logging:
