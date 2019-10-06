@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Mail Title</title>
 </head>
 <body>
 	<h1>title: ${title}</h1>
