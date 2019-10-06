@@ -4,6 +4,7 @@ package com.talent518.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.talent518.demo.entity.User;
@@ -35,6 +36,7 @@ public class UserService {
 		return userMapper.register(user) > 0;
 	}
 	
+	@Cacheable("springboot-user")
 	public User findByUsername(String username) {
 		return userMapper.findByUsername(username);
 	}

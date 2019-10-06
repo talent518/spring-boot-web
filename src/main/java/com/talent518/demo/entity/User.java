@@ -1,8 +1,10 @@
 package com.talent518.demo.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
+	private static final long serialVersionUID = -8439585706867817344L;
 	private int uid;
 	private String username;
 	private String password;
