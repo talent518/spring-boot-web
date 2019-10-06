@@ -7,23 +7,39 @@
 <script type="text/javascript" src="${baseUrl}/js/sockjs.min.js"></script>
 <script type="text/javascript" src="${baseUrl}/js/stomp.min.js"></script>
 </head>
-<body>
-	<label for="topicGroup">Group: </label><input id="topicGroup" type="text" value="default" style="width:100px;" />
-	<button id="connect" onclick="connect();">Connect</button>
-	<button id="disconnect" onclick="disconnect();">Disconnect</button>
-	<button id="serverTime" onclick="getServerTime();">Get Server Time</button>
-	<span>Name: <span id="authorName"></span></span>
-	<div style="margin:10px 0;height:1px;background:gray;"></div>
-	<div id="messageWrap"></div>
+<body style="margin:0;padding:0;">
+	<div style="position:fixed;left:0px;top:0px;width:100%;height:40px;line-height:40px;border-bottom:1px gray solid;background:white;padding:0 10px;">
+		<label for="topicGroup">Group: </label><input id="topicGroup" type="text" value="default" style="width:100px;" />
+		<button id="connect" onclick="connect();">Connect</button>
+		<button id="disconnect" onclick="disconnect();">Disconnect</button>
+		<button id="serverTime" onclick="getServerTime();">Get Server Time</button>
+		<span>Name: <span id="authorName"></span></span>
+		<label><input type="checkbox" onclick="if($(this).is(':checked')){setAutoScrollEvent();}else{clearAutoScrollEvent()}" checked="checked" /> Auto Scroll</label>
+	</div>
+	<div id="messageWrap" style="margin-top:40px;padding:10px;"></div>
 	<script type="text/javascript">
 		var stompClient = null;
 		var $messageWrap = $('#messageWrap');
 		var $topicGroup = $('#topicGroup');
 		var $authorName = $('#authorName');
 		var randomName = null;
+		var timer = false;
 		$(function() {
 			setConnect(false);
 		});
+		function clearAutoScrollEvent() {
+			clearInterval(timer);
+			timer = false;
+		}
+		function setAutoScrollEvent() {
+			clearInterval(timer);
+			timer = setInterval(function() {
+				$(window).scrollTop(document.body.scrollHeight);
+			}, 20);
+		}
+		
+		setAutoScrollEvent();
+		
 		function setConnect(connected) {
 			$('#connect').attr('disabled', connected);
 			$('#disconnect').attr('disabled', !connected);
