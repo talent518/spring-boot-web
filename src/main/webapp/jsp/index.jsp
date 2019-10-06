@@ -12,10 +12,10 @@ a{display:inline-block;text-decoration:none;color:blue;}
 a>span{display:inline-block;vertical-align:middle;color:black;-webkit-animation: hue 3s infinite linear;}
 a:hover{color:#F20;}
 form{position:fixed;top:10px;right:10px;display:none;line-height:26px;text-align:center;}
-p{margin:0;padding:0;}
+p{margin:0;padding:5px;text-align:right;}
 label{font-weight:bold;}
 input{border:1px #999 solid;border-radius:5px;padding:0 2px;line-height:26px;width:200px;height:26px;margin-left:10px;}
-button{border:1px #999 solid;background:#eee;border-radius:5px;padding:0 1em;line-height:26px;height:26px;margin-top:10px;}
+button{border:1px #999 solid;background:#eee;border-radius:5px;padding:0 1em;line-height:26px;height:26px;}
 
 @-webkit-keyframes hue {
     0%{
@@ -54,10 +54,11 @@ $('a').filter(function() {
 	
 	var args = url.match(/\{([^\}]+)\}/g);
 	var form = $('#input-param');
-	
+	var btn = $('button[type=submit]', form);
 	$('p', form).remove();
+	
 	$.each(args, function(k,v) {
-		form.prepend('<p><label for="'+v+'">'+v+'</label><input name="'+v+'" type="text" value="" /></p>');
+		$('<p><label for="'+v+'">'+v+'</label><input name="'+v+'" type="text" value="" /></p>').insertBefore(btn);
 	});
 	
 	form.show().unbind('submit').submit(function() {

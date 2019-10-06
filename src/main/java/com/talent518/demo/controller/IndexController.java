@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.condition.NameValueExpression;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
@@ -45,6 +46,7 @@ public class IndexController {
 					for (String url : patterns) {
 						// 把结果存入静态变量中程序运行一次次方法之后就不用再次请求次方法
 						set.add(url);
+						System.out.println(url);
 					}
 				}
 				set.remove("/");
