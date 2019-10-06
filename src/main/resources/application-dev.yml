@@ -52,6 +52,13 @@ spring:
         max-idle: 8
         min-idle: 0
     timeout: 300
+  application:
+    name: spring-boot-web
+  rabbitmq:
+    addresses: 127.0.0.1:5672
+    username: admin
+    password: admin8
+    publisher-confirms: true
 
 #showSql
 logging:
