@@ -21,10 +21,18 @@ public class Producer {
 
 	Random random = new Random();
 	byte[] randomBuffer = new byte[64];
+	boolean isScheduleOff = true;
 
 	@Scheduled(cron = "*/1 * * * * ?")
 	private void schedule() {
+		if(isScheduleOff) return;
+		
 		random.nextBytes(randomBuffer);
 		send("schedule", Base64.getEncoder().encodeToString(randomBuffer));
+	}
+
+	public boolean toggleSchedule() {
+		isScheduleOff = !isScheduleOff;
+		return isScheduleOff;
 	}
 }

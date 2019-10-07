@@ -13,6 +13,11 @@ public class RabbitMQController {
 	@Autowired
 	private Producer producer;
 	
+	@RequestMapping("/toggleSchedule")
+	public String toggleSchedule() {
+		return producer.toggleSchedule() ? "Closed schedule." : "Started schedule.";
+	}
+	
 	@RequestMapping("/send/{message}")
 	public String send(@PathVariable String message) {
 		producer.send("web", message);
