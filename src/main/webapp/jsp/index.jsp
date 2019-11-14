@@ -35,22 +35,26 @@ button{border:1px #999 solid;background:#eee;border-radius:5px;padding:0 1em;lin
 </head>
 <body>
 <form id="input-param" action="." method="get">
-	<button type="submit">OK</button>
+	<button type="submit" method="get">GET</button>
+	<button type="button" method="post">POST</button>
+	<button type="button" method="put">PUT</button>
+	<button type="button" method="delete">DELETE</button>
 </form>
 <c:forEach items="${urls}" var="url">
-	<a href="${baseUrl}${url}">${url}</a><br/>
+	<a href="${baseUrl}${url}" params="${paramMaps.get(url)}">${url}</a><br/>
 </c:forEach>
 <script type="text/javascript">
 $('a').filter(function() {
 	var url = $(this).attr('href');
 	
-	if(url.indexOf('{') < 0) return false;
+	if(url.indexOf('{') < 0) return $(this).is('[params!=""]');
 	
 	$(this).html($(this).text().replace(/(\{([^\}]+)\})/g, '<span>$1</span>'));
 	
 	return this;
 }).click(function() {
 	var url = $(this).attr('href');
+	var params = $(this).attr('params');
 	
 	var args = url.match(/\{([^\}]+)\}/g);
 	var form = $('#input-param');
@@ -61,20 +65,39 @@ $('a').filter(function() {
 		$('<p><label for="'+v+'">'+v+'</label><input name="'+v+'" type="text" value="" /></p>').insertBefore(btn);
 	});
 	
+	params.replace(/([^\:]*)\:([^\;]*)[\;]?/g, function($0,$1,$2) {
+		$('<p><label for="'+$1+'">'+$1+'</label><input class="param" name="'+$1+'" type="text" value="'+$2+'" /></p>').insertBefore(btn);
+		return $0;
+	});
+	
+	form.find('button[method]').unbind('click').click(function() {
+		form.attr('method', $(this).attr('method'));
+		
+		form.submit();
+	});
 	form.show().unbind('submit').submit(function() {
+		var a = {};
 		var u = url;
-		$('input', this).each(function() {
+		var b = false;
+		var $input = $('input', this).each(function() {
 			var $this = $(this);
-			if($this.val().length == 0) return false;
+			var k = $this.attr('name');
+			var v = $this.val();
+			if(v.length == 0) {
+				b = true;
+				return false;
+			}
 			
-			u = u.replace($this.attr('name'), encodeURIComponent($this.val()));
+			if($this.is('.param'))
+				a[k] = v;
+			else
+				u = u.replace(k, encodeURIComponent(v));
 		});
 		
-		if(u.indexOf('{') > -1) return false;
+		if(b || u.indexOf('{') > -1) return false;
 		
-		location.href = u;
-		
-		return false;
+		$input.filter(':not(.param)').remove();
+		$(this).attr('action', u);
 	});
 	
 	return false;
